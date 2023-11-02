@@ -1,0 +1,5 @@
+# Catalog Locus ID		Total Genotypes	Max	Genotype Freqs	F	Mean Log Likelihood	Genotype Map	
+252433		57	100.00000	aa:57(100.0%);	0.00000	1.00000	:a;	
+1053649		57	100.00000	aa:57(100.0%);	0.00000	1.00000	:a;	
+1051045		57	87.71930	aa:50(87.7%);af:1(1.8%);ag:1(1.8%);bb:2(3.5%);cc:1(1.8%);dd:1(1.8%);ee:1(1.8%);	0.00000	1.00000	CTCG:e;TACG:f;TTAG:c;TTCG:a;TTCT:g;TTNG:d;TTNN:b;	
+1054224		56	67.85714	aa:38(67.9%);ab:3(5.4%);bb:15(26.8%);	0.00000	1.00000	A:b;G:a;	

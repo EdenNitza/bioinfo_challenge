@@ -1,0 +1,44 @@
+gstacks v2.3e, executed 2023-11-01 09:52:36
+/usr/local/bin/gstacks -I ./samfiles/ -M ./popmaps/plt1popmap.txt -O ./ref_map_output
+Locus/sample distributions will be written to './ref_map_output/gstacks.log.distribs'.
+
+Configuration for this run:
+  Input mode: reference-based
+  Population map: './popmaps/plt1popmap.txt'
+  Input files: 67, e.g. './samfiles/A01.bam'
+  Output to: './ref_map_output/'
+  Model: marukilow (var_alpha: 0.01, gt_alpha: 0.05)
+
+Reading BAM headers...
+Processing all loci...
+Warning: Ignoring reads 'VH00177:209:AAF725KM5:1:1201:10828:34112' and 'VH00177:209:AAF725KM5:1:1201:10828:34112' that seem to belong to different samples ('D05' and 'B01').
+1K...
+2K...
+5K...
+10K...
+20K...
+50K...
+100K...
+200K...
+500K...
+1000K...
+done.
+
+Read 270150294 BAM records:
+  kept 116118567 primary alignments (43.0%), of which 57200908 reverse reads
+  skipped 22464176 primary alignments with insufficient mapping qualities (8.3%)
+  skipped 0 excessively soft-clipped primary alignments (0.0%)
+  skipped 131567551 unmapped reads (48.7%)
+
+  Per-sample stats (details in 'gstacks.log.distribs'):
+    read 4032093.9 records/sample (4030-13475100)
+    kept 0.9%-72.6% of these
+
+Built 1054499 loci comprising 58917659 forward reads and 38507009 matching paired-end reads; mean insert length was 223.9 (sd: 50.0).
+
+Genotyped 1054499 loci:
+  effective per-sample coverage: mean=39.0x, stdev=61.5x, min=3.1x, max=474.7x
+  mean number of sites per locus: 213.5
+  a consistent phasing was found for 48200 of out 70759 (68.1%) diploid loci needing phasing
+
+gstacks is done.

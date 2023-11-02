@@ -1,0 +1,107 @@
+ref_map.pl version 2.3e started at 2023-11-01 09:52:36
+/usr/local/bin/ref_map.pl --samples ./samfiles --popmap ./popmaps/plt1popmap.txt -o ./ref_map_output/ -X populations: -1 -r 0.80 --vcf
+
+gstacks
+==========
+/usr/local/bin/gstacks -I ./samfiles/ -M ./popmaps/plt1popmap.txt -O ./ref_map_output
+
+Logging to './ref_map_output/gstacks.log'.
+Locus/sample distributions will be written to './ref_map_output/gstacks.log.distribs'.
+
+Configuration for this run:
+  Input mode: reference-based
+  Population map: './popmaps/plt1popmap.txt'
+  Input files: 67, e.g. './samfiles/A01.bam'
+  Output to: './ref_map_output/'
+  Model: marukilow (var_alpha: 0.01, gt_alpha: 0.05)
+
+Reading BAM headers...
+Processing all loci...
+Warning: Ignoring reads 'VH00177:209:AAF725KM5:1:1201:10828:34112' and 'VH00177:209:AAF725KM5:1:1201:10828:34112' that seem to belong to different samples ('D05' and 'B01').
+1K...
+2K...
+5K...
+10K...
+20K...
+50K...
+100K...
+200K...
+500K...
+1000K...
+done.
+
+Read 270150294 BAM records:
+  kept 116118567 primary alignments (43.0%), of which 57200908 reverse reads
+  skipped 22464176 primary alignments with insufficient mapping qualities (8.3%)
+  skipped 0 excessively soft-clipped primary alignments (0.0%)
+  skipped 131567551 unmapped reads (48.7%)
+
+  Per-sample stats (details in 'gstacks.log.distribs'):
+    read 4032093.9 records/sample (4030-13475100)
+    kept 0.9%-72.6% of these
+
+Built 1054499 loci comprising 58917659 forward reads and 38507009 matching paired-end reads; mean insert length was 223.9 (sd: 50.0).
+
+Genotyped 1054499 loci:
+  effective per-sample coverage: mean=39.0x, stdev=61.5x, min=3.1x, max=474.7x
+  mean number of sites per locus: 213.5
+  a consistent phasing was found for 48200 of out 70759 (68.1%) diploid loci needing phasing
+
+gstacks is done.
+
+populations
+==========
+/usr/local/bin/populations -P ./ref_map_output -M ./popmaps/plt1popmap.txt  -1 -r 0.80 --vcf
+
+Logging to './ref_map_output/populations.log'.
+Locus/sample distributions will be written to './ref_map_output/populations.log.distribs'.
+populations parameters selected:
+  Percent samples limit per population: 0.8
+  Locus Population limit: 1
+  Percent samples overall: 0
+  Minor allele frequency cutoff: 0
+  Maximum observed heterozygosity cutoff: 1
+  Applying Fst correction: none.
+  Pi/Fis kernel smoothing: off
+  Fstats kernel smoothing: off
+  Bootstrap resampling: on, exact; 100 reptitions
+
+Parsing population map...
+The population map contained 67 samples, 1 population(s), 1 group(s).
+Working on 67 samples.
+Working on 1 population(s):
+    pop1: A01, A02, A04, A05, A06, A07, A08, A09, A10, A11, A12, B01, B02, B04, B05, B06, B07, B08, B09, B10, B11, B12, C01, C02, C04, 
+          C05, C06, C07, C08, C09, C10, C11, C12, D01, D02, D04, D05, D06, D07, D08, D09, D10, D11, D12, E01, E02, E04, E05, E06, E07, 
+          E08, E09, E10, E11, E12, F01, F02, F04, F05, F06, F07, F08, F09, F10, F11, F12, G01
+Working on 1 group(s) of populations:
+    defaultgrp: pop1
+
+SNPs and calls will be written in VCF format to './ref_map_output/populations.snps.vcf'
+Haplotypes will be written in VCF format to './ref_map_output/populations.haps.vcf'
+Genotyping markers will be written to './ref_map_output/populations.markers.tsv'
+Raw Genotypes/Haplotypes will be written to './ref_map_output/populations.haplotypes.tsv'
+Population-level summary statistics will be written to './ref_map_output/populations.sumstats.tsv'
+Population-level haplotype summary statistics will be written to './ref_map_output/populations.hapstats.tsv'
+
+Processing data in batches:
+  * load a batch of catalog loci and apply filters
+  * compute SNP- and haplotype-wise per-population statistics
+  * write the above statistics in the output files
+  * export the genotypes/haplotypes in specified format(s)
+More details in './ref_map_output/populations.log.distribs'.
+Now processing...
+ML974390.1 
+ML975052.1 
+ 
+
+Removed 1054495 loci that did not pass sample/population constraints from 1054499 loci.
+Kept 4 loci, composed of 1058 sites; 15 of those sites were filtered, 5 variant sites remained.
+    1058 genomic sites, of which 0 were covered by multiple loci (0.0%).
+Mean genotyped sites per locus: 264.50bp (stderr 59.14).
+
+Population summary statistics (more detail in populations.sumstats_summary.tsv):
+  pop1: 55.8 samples per locus; pi: 0.10532; all/variant/polymorphic sites: 1058/5/5; private alleles: 0
+Populations is done.
+ref_map.pl is done.
+
+ref_map.pl completed at 2023-11-01 10:24:17
