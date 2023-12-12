@@ -1,0 +1,54 @@
+#! /bin/bash
+
+##ran FastQC on both forward and reverse files received from Illumina Hi-Seq 
+##quick summary of R1 results: passed all of the tests except for per base sequence content, sequence duplication levels, and adapter content. 
+##quick summary of R2 results: passed all of the tests except for per base sequence quality, sequence duplication levels, and adapter content. 
+
+##cleaned sequences, removed low-quality sequences, and demultiplexed samples with process_radtags 
+#had to be ran in 3 batches due to lack of computing power
+
+cd ~usr/local/bin
+
+#within ./raw are the sequences from Illumina, ./samples is where the demultiplexed samples will go, barcodes*-*.txt is the file in which the barcodes for each well are given, which was a subset of the file gbsbarcodes.txt
+
+sudo process_radtags -P -i gzfastq -p ./raw/ -o ./samples/ -b barcodes1-4.txt -c -r -q -s 5 –disable_rad_check –retain_header –renz_1 pstI –renz_2 mspI 
+
+sudo process_radtags -P -i gzfastq -p ./raw/ -o ./samples/ -b barcodes5-8.txt -c -r -q -s 5 –disable_rad_check –retain_header –renz_1 pstI –renz_2 mspI 
+
+sudo process_radtags -P -i gzfastq -p ./raw/ -o ./samples/ -b barcodes9-12.txt -c -r -q -s 5 –disable_rad_check –retain_header –renz_1 pstI –renz_2 mspI 
+
+##aligned sequences with bowtie2 
+
+#get bowtie and samtools set up
+conda create –name myenvi python=3.6 
+conda activate my envi
+conda install bowtie2
+conda install -c bioconda samtools 
+
+#set reference genome
+bowtie2-build genbank_riverotter_refgneome.fa refgenome 
+
+#genbank_riverotter_refgenome.fa is the otter reference genome downloaded from NCBI GenBank, it is being named refgenome
+
+#test run aligning samples with reference genome 
+bowtie2 -x refgenome -1 A01.1.fq.gz -2 A01.2.fq.gz -S A01.bsam -q -p 4 | samtools view -h -b | samtools sort > A01.bam 
+
+#A01.2.fq.gz and A01.1.fq.gz are the two files (forward and reverse) for one individual sample. 
+
+#run script with all of the samples 
+chmod +x EN_pltbowtie.sh 
+./EN_plt1bowtie.sh 
+
+#convert to bam files to save space
+ls *.sam | parallel “samtools view -bS {} > {.}.bam” 
+
+#sort bam files
+ls *.bam | parallel ‘samtools sort {} -o {.}_sorted.bam 
+
+#batch renamed these output files so that the _sorted was removed
+
+##ran stacks pipeline 
+
+sudo ref_map.pl –samples ./samfiles –popmap ./popmaps/plt1popmap.txt -o ./ref_map_output/ -X “populations: p -1 -r 0.80 –vcf” 
+
+#
